@@ -69,7 +69,7 @@ vim.opt.list = true
 -- vim.opt.listchars = ''
 
 vim.opt.cc = '81'
-vim.opt.fileencodings = 'utf8,ibm1047'
+vim.opt.fileencodings = 'utf8,IBM-1047/ZOS_UNIX'
 
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
@@ -85,6 +85,13 @@ require('lazy').setup({
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
+  -- Terminal
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = true
+  },
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -417,6 +424,14 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-- [[ Configure Terminal ]]
+require('toggleterm').setup{
+  open_mapping = [[<c-\>]],
+  insert_mappings = true,
+  terminal_mappings = true,
+  direction = 'horizontal',
+}
+
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -495,7 +510,23 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
 local lspconfig = require('lspconfig')
-lspconfig.clangd.setup {}
+lspconfig.clangd.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
+vim.g.markdown_fenced_languages = {
+  "ts=typescript"
+}
+lspconfig.denols.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    ['deno'] = {
+      enable = true,
+      unstable = true,
+    },
+  },
+}
 lspconfig.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {
