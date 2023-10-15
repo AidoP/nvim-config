@@ -98,6 +98,9 @@ return {
         -- Setup LSP
         local lspconfig = require('lspconfig')
 
+        -- C & C++
+        lspconfig.clangd.setup({})
+
         -- Rust
         local rust = require('rust-tools')
         rust.setup({
