@@ -1,5 +1,9 @@
 return {
     plugins = {
+        -- Project-local Neovim config
+        {
+            'folke/neoconf.nvim',
+        },
         -- Atom One Dark Theme
         {
             'navarasu/onedark.nvim',
@@ -31,10 +35,8 @@ return {
         {
             'lukas-reineke/indent-blankline.nvim',
             -- See `:help indent_blankline.txt`
-            opts = {
-                char = '┊',
-                show_trailing_blankline_indent = false,
-            },
+            main = 'ibl',
+            opts = {},
         },
         -- Surround Text Objects
         {
@@ -172,6 +174,9 @@ return {
         -- Better Colours
         vim.o.termguicolors = true
 
+        -- Project specific config
+        require('neoconf').setup({})
+
         -- Terminal
         require('toggleterm').setup{
             open_mapping = [[<C-space>]],
@@ -179,6 +184,16 @@ return {
             terminal_mappings = true,
             direction = 'float',
         }
+
+        -- Indent Blank Line
+        require('ibl').setup({
+            indent = {
+                char = '┊',
+            },
+            scope = {
+                enabled = true,
+            },
+        })
 
         -- Telescope
         -- See `:help telescope` and `:help telescope.setup()`

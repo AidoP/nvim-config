@@ -79,6 +79,10 @@ return {
         {
             'lervag/vimtex'
         },
+        -- Slint UI
+        {
+            'slint-ui/vim-slint',
+        },
     },
     setup = function()
         -- Language Support in Markdown
@@ -101,11 +105,11 @@ return {
 
         -- Setup LSP
         local lspconfig = require('lspconfig')
-        local configs = require('lspconfig.configs')
+        local lspconfig_custom = require('lspconfig.configs')
 
         -- HLASM
-        if not configs.hlasm then
-            configs.hlasm = {
+        if not lspconfig_custom.hlasm then
+            lspconfig_custom.hlasm = {
                 default_config = {
                     cmd = { 'hlasm-language-server' },
                     filetypes = { 'hlasm' },
@@ -141,6 +145,9 @@ Language Server for IBM High-Level Assember]],
             on_attach = on_attach,
         })
 
+        -- Zig
+        lspconfig.zls.setup({})
+
         -- Rust
         local rust = require('rust-tools')
         rust.setup({
@@ -169,6 +176,14 @@ Language Server for IBM High-Level Assember]],
                 }
             },
         })
+
+        -- Slint UI
+        lspconfig_custom.slint = {
+            default_config = {
+                cmd = { 'slint-lsp' },
+                filetypes = { 'slint' },
+            }
+        }
 
         -- Configure nvim-cmp
         -- See `:help cmp`
