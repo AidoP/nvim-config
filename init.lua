@@ -5,6 +5,7 @@ vim.g.maplocalleader = ' '
 -- Get all config modules
 local config = {
   require('config.editor'),
+  require('config.file-types'),
   require('config.git'),
   require('config.lsp'),
 }

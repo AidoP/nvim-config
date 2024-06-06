@@ -75,6 +75,10 @@ return {
         {
             'simrat39/rust-tools.nvim'
         },
+        -- LaTeX
+        {
+            'lervag/vimtex'
+        },
     },
     setup = function()
         -- Language Support in Markdown
@@ -97,9 +101,45 @@ return {
 
         -- Setup LSP
         local lspconfig = require('lspconfig')
+        local configs = require('lspconfig.configs')
+
+        -- HLASM
+        if not configs.hlasm then
+            configs.hlasm = {
+                default_config = {
+                    cmd = { 'hlasm-language-server' },
+                    filetypes = { 'hlasm' },
+                    root_dir = function(fname)
+                        return lspconfig.util.find_git_ancestor(fname)
+                    end,
+                    settings = {},
+                },
+                docs = {
+                    description = [[
+https://github.com/eclipse-che4z/che-che4z-lsp-for-hlasm
+
+Language Server for IBM High-Level Assember]],
+                },
+            }
+        end
+        lspconfig.hlasm.setup({
+            on_attach = function()
+                apples(an)
+                print 'hlasm lsp setup'
+            end
+        })
+
+        -- Setup Typescript
+        lspconfig.tsserver.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
 
         -- C & C++
-        lspconfig.clangd.setup({})
+        lspconfig.clangd.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
 
         -- Rust
         local rust = require('rust-tools')
@@ -176,6 +216,11 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
             },
+        }
+
+        vim.g.vimtex_compiler_method = 'tectonic'
+        vim.g.vimtex_compiler_tectonic = {
+            out_dir = 'target/',
         }
     end,
 }
