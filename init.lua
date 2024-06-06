@@ -1,30 +1,48 @@
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Get all config modules
 local config = {
-  require('config.editor'),
-  require('config.file-types'),
-  require('config.git'),
-  require('config.lsp'),
+    require('config.core'),
+    require('config.keybinds'),
+    -- require('git'),
+}
+
+local plugins = {
+    -- Atom One Dark Theme
+    {
+        'navarasu/onedark.nvim',
+        priority = 1000,
+        config = function()
+            vim.cmd.colorscheme 'onedark'
+        end,
+    },
+    -- Status Line
+    {
+        'nvim-lualine/lualine.nvim',
+        opts = {
+            options = {
+                icons_enabled = false,
+                theme = 'onedark',
+                component_separators = '│',
+                section_separators = '',
+            },
+        },
+    },
 }
 
 -- Plugin Manager - lazy.nvim
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    'git',
-    'clone',
-    '--filter=blob:none',
-    'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
-    lazypath,
-  })
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable",
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
-
-local plugins = {}
 
 -- Get plugins for all config modules
 for i, c in ipairs(config) do
@@ -32,13 +50,9 @@ for i, c in ipairs(config) do
     table.insert(plugins, p)
   end
 end
-
 require('lazy').setup(plugins, {})
 
 -- Run setup for all config modules
 for i, c in ipairs(config) do
   c.setup()
 end
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
