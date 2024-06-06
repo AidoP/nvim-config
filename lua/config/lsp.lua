@@ -75,6 +75,10 @@ return {
         {
             'simrat39/rust-tools.nvim'
         },
+        -- Slint UI
+        {
+            'slint-ui/vim-slint',
+        },
     },
     setup = function()
         -- Language Support in Markdown
@@ -97,9 +101,13 @@ return {
 
         -- Setup LSP
         local lspconfig = require('lspconfig')
+        local lspconfig_custom = require('lspconfig.configs')
 
         -- C & C++
         lspconfig.clangd.setup({})
+
+        -- Zig
+        lspconfig.zls.setup({})
 
         -- Rust
         local rust = require('rust-tools')
@@ -129,6 +137,14 @@ return {
                 }
             },
         })
+
+        -- Slint UI
+        lspconfig_custom.slint = {
+            default_config = {
+                cmd = { 'slint-lsp' },
+                filetypes = { 'slint' },
+            }
+        }
 
         -- Configure nvim-cmp
         -- See `:help cmp`

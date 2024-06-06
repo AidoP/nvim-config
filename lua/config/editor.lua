@@ -1,5 +1,9 @@
 return {
     plugins = {
+        -- Project-local Neovim config
+        {
+            'folke/neoconf.nvim',
+        },
         -- Atom One Dark Theme
         {
             'navarasu/onedark.nvim',
@@ -96,6 +100,7 @@ return {
         -- Invisible Characters
         vim.o.list = true
         vim.o.listchars = 'trail:·'
+        vim.o.listchars = 'tab:>·'
 
         -- Column 80 Guide
         vim.o.cc = '81'
@@ -138,6 +143,9 @@ return {
 
         -- Better Colours
         vim.o.termguicolors = true
+
+        -- Project specific config
+        require('neoconf').setup({})
 
         -- Terminal
         require('toggleterm').setup{
