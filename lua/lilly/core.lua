@@ -12,6 +12,20 @@ local plugins = {
         main = 'ibl',
         opts = {},
     },
+    -- Filesystem Tree
+    {
+        'nvim-tree/nvim-tree.lua',
+        version = '^1',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        },
+    },
+    -- Notifications
+    {
+        'j-hui/fidget.nvim',
+        tag = 'v1.4.5',
+        opts = {},
+    },
 }
 
 local setup = function()
@@ -54,8 +68,8 @@ local setup = function()
     vim.o.clipboard = 'unnamedplus'
 
     -- Decrease Update Time
-    vim.o.updatetime = 250
-    vim.o.timeoutlen = 300
+    vim.o.updatetime = 2500
+    vim.o.timeout = false
 
     -- Indent Blank Line
     require('ibl').setup({
@@ -74,6 +88,9 @@ local setup = function()
         terminal_mappings = true,
         direction = 'tab',
     }
+
+    -- Filesystem Tree
+    require('nvim-tree').setup({})
 end
 
 return {

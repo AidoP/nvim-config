@@ -1,10 +1,18 @@
+-- Space as the leader key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 local config = {
-    require('config.core'),
-    require('config.keybinds'),
-    -- require('git'),
+    require('lilly.core'),
+    require('lilly.git'),
+    require('lilly.help'),
+    require('lilly.keybinds'),
+    require('lilly.lsp'),
+    require('lilly.telescope'),
 }
 
 local plugins = {
@@ -21,7 +29,7 @@ local plugins = {
         'nvim-lualine/lualine.nvim',
         opts = {
             options = {
-                icons_enabled = false,
+                icons_enabled = true,
                 theme = 'onedark',
                 component_separators = '│',
                 section_separators = '',
