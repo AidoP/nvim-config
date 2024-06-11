@@ -17,6 +17,20 @@ local plugins = {
 }
 local setup = function()
     local telescope = require('telescope')
+    telescope.setup {
+        defaults = {
+            mappings = {
+                n = {
+                    ['<C-d>'] = require('telescope.actions').delete_buffer,
+                },
+                i = {
+                    ['<C-u>'] = false,
+                    ['<C-d>'] = require('telescope.actions').delete_buffer,
+                },
+            },
+        },
+    }
+
     local telescope_builtin = require('telescope.builtin')
     telescope.load_extension('fzf')
 

@@ -2,17 +2,27 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Disable netrw
+-- Disable unused built-in features
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 local config = {
+    require('lilly.autocomplete'),
     require('lilly.core'),
+    require('lilly.edit'),
+    require('lilly.file-tree'),
     require('lilly.git'),
     require('lilly.help'),
     require('lilly.keybinds'),
     require('lilly.lsp'),
+    require('lilly.run'),
+    --require('lilly.startup'),
     require('lilly.telescope'),
+    require('lilly.tree-sitter'),
 }
 
 local plugins = {
@@ -33,6 +43,9 @@ local plugins = {
                 theme = 'onedark',
                 component_separators = '│',
                 section_separators = '',
+                disabled_filetypes = {
+                    'NvimTree',
+                },
             },
         },
     },

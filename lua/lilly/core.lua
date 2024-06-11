@@ -12,20 +12,8 @@ local plugins = {
         main = 'ibl',
         opts = {},
     },
-    -- Filesystem Tree
-    {
-        'nvim-tree/nvim-tree.lua',
-        version = '^1',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-        },
-    },
     -- Notifications
-    {
-        'j-hui/fidget.nvim',
-        tag = 'v1.4.5',
-        opts = {},
-    },
+    'rcarriga/nvim-notify',
 }
 
 local setup = function()
@@ -69,7 +57,9 @@ local setup = function()
 
     -- Decrease Update Time
     vim.o.updatetime = 2500
-    vim.o.timeout = false
+
+    -- Use nvim-notify for notifications
+    vim.notify = require('notify')
 
     -- Indent Blank Line
     require('ibl').setup({
@@ -82,15 +72,12 @@ local setup = function()
     })
 
     -- Terminal
-    require('toggleterm').setup{
+    require('toggleterm').setup({
         open_mapping = [[<C-space>]],
         insert_mappings = true,
         terminal_mappings = true,
         direction = 'tab',
-    }
-
-    -- Filesystem Tree
-    require('nvim-tree').setup({})
+    })
 end
 
 return {

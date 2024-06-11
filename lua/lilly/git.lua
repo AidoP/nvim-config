@@ -31,6 +31,8 @@ local plugins = {
             on_attach = status_signs_attach,
         },
     },
+    -- Git Commands
+    'tpope/vim-fugitive',
 }
 local setup = function()
 
