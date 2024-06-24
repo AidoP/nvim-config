@@ -19,13 +19,20 @@ local config = {
     require('lilly.help'),
     require('lilly.keybinds'),
     require('lilly.lsp'),
-    require('lilly.run'),
+    require('lilly.org'),
+    --require('lilly.run'),
     --require('lilly.startup'),
     require('lilly.telescope'),
     require('lilly.tree-sitter'),
 }
 
 local plugins = {
+    -- Luarocks package manager
+    {
+        "vhyrro/luarocks.nvim",
+        priority = 9999,
+        config = true,
+    },
     -- Atom One Dark Theme
     {
         'navarasu/onedark.nvim',
