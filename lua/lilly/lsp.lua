@@ -89,6 +89,33 @@ local setup = function()
     lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
         on_attach = on_attach,
+        standalone = true,
+    })
+
+    -- Java
+    lspconfig.jdtls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+    })
+
+    -- Python
+    lspconfig.pylsp.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+    })
+
+    -- Typescript
+    lspconfig.tsserver.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+    })
+
+    -- HLASM
+    local hlasm = require('lilly.hlasm')
+    hlasm.setup()
+    lspconfig.hlasm.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
     })
 end
 

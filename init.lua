@@ -19,6 +19,7 @@ local config = {
     require('lilly.help'),
     require('lilly.keybinds'),
     require('lilly.lsp'),
+    require('lilly.markdown'),
     require('lilly.org'),
     --require('lilly.run'),
     --require('lilly.startup'),

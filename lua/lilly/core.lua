@@ -32,8 +32,16 @@ local setup = function()
     vim.o.smartindent = true
     vim.o.expandtab = true
 
-    -- Columns 80 and 160 Guide
-    vim.o.cc = '81,161'
+    -- Column Guides per file type
+    vim.api.nvim_create_autocmd({'FileType'}, {
+        callback = function(args)
+            if args.match == 'hlasm' then
+                vim.o.cc = '16,21,30,72,80'
+            else
+                vim.o.cc = '80,160'
+            end
+        end
+    })
 
     -- Show Invisible Characters
     vim.o.list = true
